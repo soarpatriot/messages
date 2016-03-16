@@ -37,22 +37,31 @@ set :linked_dirs, fetch(:linked_dirs, []).push('node_modules')
 
 namespace :deploy do
 
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
+  task :restart  do
+    on roles(:web) do
+      within current_path do
+        execute :sh, 'forever restart ./config/test.json'
+      end
     end
   end
 
   task :start  do
     on roles(:web)  do
       within current_path do
-        execute :sh, 'forever start app.js'
+        execute :sh, 'forever start ./config/test.json'
+      end
+    end
+  end
+
+  task :stop  do
+    on roles(:web)  do
+      within current_path do
+        execute :sh, 'forever stop ./config/test.json'
       end
     end
   end
 
 
+
 end
+after "deploy:publishing", "deploy:restart"

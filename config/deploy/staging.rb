@@ -1,3 +1,18 @@
+
+set :repo_url, 'https://github.com/soarpatriot/messages.git'
+
+set :stage, :staging
+
+set :profile, "test"
+
+set :deploy_to, "/data/www/messages"
+
+set :server_name, "106.186.115.200"
+
+set :branch, "master"
+
+server fetch(:server_name), user: 'soar', roles: %w{web app}
+
 # server-based syntax
 # ======================
 # Defines a single server with a list of roles and multiple properties.
