@@ -27,7 +27,7 @@ set :format, :pretty
 # set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
 
 # Default value for linked_dirs is []
-set :linked_dirs, fetch(:linked_dirs, []).push('node_modules')
+set :linked_dirs, fetch(:linked_dirs, []).push('node_modules','tmp/pids')
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -40,7 +40,7 @@ namespace :deploy do
   task :restart  do
     on roles(:web) do
       within current_path do
-        execute :sh, 'forever restart ./config/test.json'
+        execute :forever, 'restart ./config/test.json'
       end
     end
   end
@@ -48,7 +48,7 @@ namespace :deploy do
   task :start  do
     on roles(:web)  do
       within current_path do
-        execute :sh, 'forever start ./config/test.json'
+        execute :forever, 'restart ./config/test.json'
       end
     end
   end
@@ -56,7 +56,7 @@ namespace :deploy do
   task :stop  do
     on roles(:web)  do
       within current_path do
-        execute :sh, 'forever stop ./config/test.json'
+        execute :forever, 'stop ./config/test.json'
       end
     end
   end

@@ -2,9 +2,9 @@
 
 {
   "uid": "messages",
-  "script:": "app.js",
+  "script": "app.js",
   "watch": true,
-  "pidFile": "/data/www/shared/tmp/appliction.pid",
+  "pidFile": "/data/www/messages/shared/tmp/pids/appliction.pid",
   "sourceDir": "/data/www/messages/current",
   "args": ["--port", "8081"]
 }
