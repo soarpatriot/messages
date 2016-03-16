@@ -40,7 +40,7 @@ namespace :deploy do
   task :restart  do
     on roles(:web) do
       within current_path do
-        execute :forever, 'restart ./config/test.json'
+        execute :forever, 'start ./config/test.json'
       end
     end
   end
@@ -48,7 +48,7 @@ namespace :deploy do
   task :start  do
     on roles(:web)  do
       within current_path do
-        execute :forever, 'restart ./config/test.json'
+        execute :forever, 'start ./config/test.json'
       end
     end
   end
