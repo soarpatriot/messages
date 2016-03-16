@@ -40,7 +40,13 @@ namespace :deploy do
   task :restart  do
     on roles(:web) do
       within current_path do
-        execute :forever, 'start ./config/test.json'
+        if test("[ -f #{fetch(:app_pid)} ]")
+          info ">>>>>> restart" 
+          execute :forever, 'start ./config/test.json'
+        else
+          info ">>>>> start"
+          execute :forever, 'restart ./config/test.json'
+        end
       end
     end
   end
@@ -48,7 +54,13 @@ namespace :deploy do
   task :start  do
     on roles(:web)  do
       within current_path do
-        execute :forever, 'start ./config/test.json'
+        unless test("[ -f #{fetch(:app_pid)} ]")
+          info ">>>>> start"
+          execute :forever, 'start ./config/test.json'
+        else 
+          error ">>>>>> already started"
+        end 
+
       end
     end
   end

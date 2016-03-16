@@ -9,6 +9,7 @@ set :deploy_to, "/data/www/messages"
 
 set :server_name, "106.186.115.200"
 #set :server_name, "dreamreality.cn"
+set :app_pid, "#{shared_path}/tmp/pids/appliction.pid"
 
 set :branch, "master"
 
