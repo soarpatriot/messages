@@ -7,5 +7,5 @@
   "append": true,
   "pidFile": "/data/www/messages/shared/tmp/pids/appliction.pid",
   "sourceDir": "/data/www/messages/current",
-  "args": ["--port", "8081"]
+  "args": ["--port", "5566"]
 }

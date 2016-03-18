@@ -1,5 +1,5 @@
 
-var port = 3000;
+var port = process.env.PORT || 5566;
 var logger = require('tracer').console();
 var server = require('http').createServer();
 var io = require('socket.io')(server);
