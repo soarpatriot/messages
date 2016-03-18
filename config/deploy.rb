@@ -42,10 +42,10 @@ namespace :deploy do
       within current_path do
         if test("[ -f #{fetch(:app_pid)} ]")
           info ">>>>>> restart" 
-          execute :forever, 'start ./config/test.json'
+          execute :forever, 'restart ./config/test.json'
         else
           info ">>>>> start"
-          execute :forever, 'restart ./config/test.json'
+          execute :forever, 'start ./config/test.json'
         end
       end
     end
