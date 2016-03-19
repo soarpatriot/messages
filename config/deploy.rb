@@ -45,7 +45,7 @@ namespace :deploy do
   task :start  do
     on roles(:web)  do
       within current_path do
-        if test("[ -e #{fetch(:app_pid)} ]")
+        unless test("[ -f #{fetch(:app_pid)} ]")
           info ">>>>> start"
           execute :forever, 'start ./config/test.json'
         else 
@@ -59,7 +59,7 @@ namespace :deploy do
   task :stop  do
     on roles(:web)  do
       within current_path do
-        unless test("[ -f #{fetch(:app_pid)} ]")
+        if test("[ -f #{fetch(:app_pid)} ]")
           info ">>>>> stop"
           execute :forever, 'stop messages'
         end 
