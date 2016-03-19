@@ -38,23 +38,14 @@ set :linked_dirs, fetch(:linked_dirs, []).push('node_modules','tmp/pids')
 namespace :deploy do
 
   task :restart  do
-    on roles(:web) do
-      within current_path do
-        if test("[ -f #{fetch(:app_pid)} ]")
-          info ">>>>>> restart" 
-          execute :forever, 'start ./config/test.json'
-        else
-          info ">>>>> start"
-          execute :forever, 'restart ./config/test.json'
-        end
-      end
-    end
+    invoke :"deploy:stop"
+    invoke :"deploy:start"
   end
 
   task :start  do
     on roles(:web)  do
       within current_path do
-        unless test("[ -f #{fetch(:app_pid)} ]")
+        if test("[ -e #{fetch(:app_pid)} ]")
           info ">>>>> start"
           execute :forever, 'start ./config/test.json'
         else 
@@ -68,7 +59,10 @@ namespace :deploy do
   task :stop  do
     on roles(:web)  do
       within current_path do
-        execute :forever, 'stop ./config/test.json'
+        unless test("[ -f #{fetch(:app_pid)} ]")
+          info ">>>>> stop"
+          execute :forever, 'stop messages'
+        end 
       end
     end
   end
